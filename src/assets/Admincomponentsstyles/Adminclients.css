@@ -1,0 +1,115 @@
+.admin-clients {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.add-client-btn {
+  padding: 10px 20px;
+  /* font-size: 16px; */
+  cursor: pointer;
+}
+
+.client-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.client-box {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.client-box h3 {
+  margin-top: 0;
+}
+
+.client-box p {
+  margin: 5px 0;
+}
+
+.client-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.client-actions button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+}
+
+.popup-content form input,
+.popup-content form select {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.popup-content form button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.popup-content form button:last-child {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  /* margin-left: 10px; */
+}
+
+.pagination__link {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination__link--active {
+  /* background-color: #007bff; */
+  color: white;
+  border: none;
+}
+
+.pagination__link--disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

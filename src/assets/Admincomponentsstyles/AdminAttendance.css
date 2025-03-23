@@ -1,0 +1,46 @@
+.admin-attendance {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .attendance-table th, .attendance-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .attendance-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .attendance-table select {
+    padding: 5px;
+  }
+  
+  .submit-attendance-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submit-attendance-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .attendance-date {
+    margin-bottom: 20px;
+  }
+  
+  .attendance-date label {
+    font-weight: bold;
+  }
+  

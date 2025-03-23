@@ -1,0 +1,197 @@
+.mainpage-container {
+    display: flex;
+    flex-direction: column;
+    width: 99vw;
+    background-color: rgb(245, 250, 250);
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 99.7%;
+    height: 5vw;
+    border: 2px solid lightblue;
+    color: black;
+}
+
+.rightside-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.imageside-container img{
+    width: 7vw;
+}
+
+.getstarted{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: rgb(2, 2, 46);
+    border-radius: 10px;
+    color: white;
+    width: 14vw;
+    height: 4vw;
+    cursor: pointer;
+}
+.getstarted svg{
+    margin-left: 1vw;
+    display: flex;
+    width: 2.5vw;
+    height: 3vw;
+    animation: none;
+}
+
+.getstarted:hover svg {
+    animation: moveArrow 0.6s ease-in-out; /* Moves the arrow diagonally and back */
+}
+
+.anchortag-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(174, 174, 228);
+    width: 55vw;
+    height: 3vw;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.anchortag-container a{
+    margin: 2vw;
+    color: black;
+    font-family: cursive;
+}
+
+.headingtag-container{
+    font-size: small;
+}
+.headingtag-container h2{
+    margin-bottom: 0px;
+}
+.headingtag-container p{
+    margin-top: 0px;
+}
+
+.mainpagecontent-container {
+    width: 99.4vw;
+    height: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Evenly distributes space between the divs */
+    align-items: center;
+}
+
+.mainpagecontent-container div {
+    height: 100%;
+}
+
+.mainpagecontent-container .left, 
+.mainpagecontent-container .right {
+    width: 20%;
+}
+
+.mainpagecontent-container .middle {
+    width: 55%;
+}
+
+.discover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(89, 197, 233);
+    color: rgb(91, 91, 221);
+    width: 37%;
+    border-radius: 10px;
+    font-size: small;
+}
+.discover svg{
+    margin-left: 5px;
+}
+
+.mainpageside-container{
+    margin-left: 8vw;
+    color: black;
+}
+
+.mainimage-container img {
+    margin-top: 10vw;
+    width: 100%;
+    height: auto;
+}
+
+.mainpageside-container{
+    width: 100%;
+}
+
+.getaquote{
+    /* border: 2px solid black; */
+    width: 30%;
+    height: 9%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(73, 73, 221);
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+.getaquote svg {
+    margin-left: 1vw;
+    width: 30px;
+    height: 30px;
+    fill: darkblue;
+    animation: none;
+}
+
+/* Define the animation for moving diagonally and returning */
+@keyframes moveArrow {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(10px, -10px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Apply the animation on hover */
+.getaquote:hover svg {
+    animation: moveArrow 0.6s ease-in-out; /* Moves the arrow diagonally and back */
+    fill: blue; /* Change color on hover */
+}
+
+.getaquote svg path {
+    fill: white;
+}
+
+.exploreservices{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: rgb(2, 2, 46);
+    border-radius: 15px;
+    color: white;
+    width: 40%;
+    height: 9%;
+    cursor: pointer;
+    margin-top: 0px;
+}
+.exploreservices svg{
+    margin-left: 1vw;
+    display: flex;
+    width: 2.5vw;
+    height: 3vw;
+    animation: none;
+}
+
+.exploreservices:hover svg {
+    animation: moveArrow 0.6s ease-in-out; /* Moves the arrow diagonally and back */
+}
