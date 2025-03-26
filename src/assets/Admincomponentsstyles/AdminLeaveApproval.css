@@ -1,0 +1,84 @@
+.admin-leave-management {
+  width: 90%;
+  margin: auto;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.leave-list-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+}
+
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leave-table th,
+.leave-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.leave-table th {
+  background: #007bff;
+  color: white;
+}
+
+.leave-table tr.pending {
+  background: #fffbe6;
+}
+
+.leave-table tr.approved {
+  background: #e6ffe6;
+}
+
+.leave-table tr.rejected {
+  background: #ffe6e6;
+}
+
+.approve-btn,
+.reject-btn {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.approve-btn {
+  background: #28a745;
+  color: white;
+}
+
+.reject-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.no-requests {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+  padding: 20px;
+}

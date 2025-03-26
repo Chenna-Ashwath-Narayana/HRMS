@@ -147,7 +147,7 @@ const AdminClients = () => {
                 <option value="">Select Status</option>
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
-              </select>
+              </select> <br />
               <button type="submit">{editingClientId ? 'Update Client' : 'Add Client'}</button>
               <button type="button" onClick={() => setShowPopup(false)}>Close</button>
             </form>
@@ -155,22 +155,29 @@ const AdminClients = () => {
         </div>
       )}
 
-      {/* Client list */}
-      <div className="client-grid">
-        {currentClients.map((client) => (
-          <div key={client.clientId} className="client-card">
-            <h3>{client.clientName}</h3>
-            <p><strong>Company Name:</strong> {client.companyName}</p>
-            <p><strong>Contact Person:</strong> {client.contactPerson}</p>
-            <p><strong>Email:</strong> {client.email}</p>
-            <p><strong>Phone Number:</strong> {client.phoneNumber}</p>
-            <p><strong>Address:</strong> {client.address}</p>
-            <p><strong>Status:</strong> {client.status}</p>
-            <button onClick={() => handleEdit(client)}>Edit</button>
-            <button onClick={() => handleDelete(client.clientId)}>Delete</button>
-          </div>
-        ))}
+      {/* Client list */ }
+<div className="client-grid">
+  {currentClients.map((client) => (
+    <div key={client.clientId} className="client-card">
+      <div className="client-card-content">
+        <h3>{client.clientName}</h3>
+        <div className="client-details">
+          <p><strong>Company Name:</strong> {client.companyName}</p>
+          <p><strong>Contact Person:</strong> {client.contactPerson}</p>
+          <p><strong>Email:</strong> {client.email}</p>
+          <p><strong>Phone Number:</strong> {client.phoneNumber}</p>
+          <p><strong>Address:</strong> {client.address}</p>
+          <p><strong>Status:</strong> {client.status}</p>
+        </div>
       </div>
+      <div className="client-card-actions">
+        <button onClick={() => handleEdit(client)}>Edit</button>
+        <button onClick={() => handleDelete(client.clientId)}>Delete</button>
+      </div>
+    </div>
+  ))}
+</div>
+
 
       {/* Pagination */}
       <ReactPaginate

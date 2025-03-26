@@ -1,46 +1,79 @@
 .admin-attendance {
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.attendance-date {
+  margin-bottom: 20px;
+}
+
+.attendance-table-container {
+  max-height: 300px; /* Set max height for scrolling */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-table th,
+.attendance-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.submit-attendance-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+}
+
+.submit-attendance-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Attendance List */
+.attendance-list-container {
+  margin-top: 20px;
+}
+
+.attendance-list-scroll {
+  max-height: 250px; /* Set max height for scrolling */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.attendance-list-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-list-table th,
+.attendance-list-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .attendance-table-container,
+  .attendance-list-scroll {
+    max-height: 200px;
   }
-  
-  .attendance-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+
+  .attendance-table th,
+  .attendance-table td,
+  .attendance-list-table th,
+  .attendance-list-table td {
+    font-size: 12px;
   }
-  
-  .attendance-table th, .attendance-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .attendance-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .attendance-table select {
-    padding: 5px;
-  }
-  
-  .submit-attendance-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .submit-attendance-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .attendance-date {
-    margin-bottom: 20px;
-  }
-  
-  .attendance-date label {
-    font-weight: bold;
-  }
-  
+}

@@ -4,12 +4,10 @@ import axios from 'axios';
 import { FiEye, FiEyeOff, FiUser, FiKey, FiLinkedin, FiFacebook, FiTwitter } from "react-icons/fi"; 
 import loginlogoremovebgpreview from '../images/loginlogo-removebg-preview.png';
 import { useNavigate } from 'react-router-dom';
-import { useEmployee } from '../Context/EmployeeContext'; // Use EmployeeContext
 
 const Employeelogin = () => {
   const navigate = useNavigate();
-  const { login } = useEmployee(); // Use Employee login context
-
+  
   const [showPassword, setShowPassword] = useState(false);
   const [employeeId, setEmployeeId] = useState('');
   const [password, setPassword] = useState('');
@@ -29,27 +27,35 @@ const Employeelogin = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:9000/employee/findbyEmployeeIdAndPassword/${employeeId}/${password}`);
+      // Sending GET request with employeeId and password as query parameters
+      const response = await axios.get(`http://localhost:9000/employee/findbyEmployeeIdAndPassword`, {
+        params: {
+          employeeId: employeeId,
+          password: password
+        }
+      });
 
       if (response.status === 200) {
         const employeeData = response.data;
         console.log("Login successful", employeeData);
-        // Store employee data in context
-        login(employeeData);
-        // login({
-        //   employeeId: employeeData.employeeId,
-        //   employeeName: employeeData.employeeName,
-        // });
+        
+        // Store employee data in local storage for use in other components
+        localStorage.setItem('employeeData', JSON.stringify(employeeData));
 
-        // Navigate to main page
+        // Navigate to employee main page
         navigate('/employeepage');
-        console.log("Navigating to /employeemainpage"); // Check if this gets logged
+        console.log("Navigating to /employeepage");
       } else {
         alert("Login failed: Employee not found or incorrect password.");
       }
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        alert("Login failed: Employee not found or incorrect password.");
+      if (error.response) {
+        // Handle error based on response status code
+        if (error.response.status === 404) {
+          alert("Login failed: Employee not found or incorrect password.");
+        } else {
+          alert(`Error: ${error.response.data.message || "An unexpected error occurred."}`);
+        }
       } else {
         console.error("Error during login:", error);
         alert("An unexpected error occurred. Please try again.");
@@ -61,6 +67,13 @@ const Employeelogin = () => {
 
   return (
     <div className='home-container'>
+      <div className='homepage-container'>
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi-bi-house-door" viewBox="0 0 16 16">
+                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                </svg>
+            </a>
+        </div>
       <div className='image-container'>
         <img src={loginlogoremovebgpreview} alt="Employee Logo" />
         <h2>EMPLOYEE MANAGEMENT</h2>
@@ -72,7 +85,7 @@ const Employeelogin = () => {
           <FiUser size={20} /> <span>Username</span>
         </label> <br />
         <input 
-          type="number" 
+          type="text" // Changed to text since Employee ID can be alphanumeric or other formats
           name="employeeId" 
           id="employeeId" 
           placeholder="Enter Employee ID" 
@@ -106,13 +119,13 @@ const Employeelogin = () => {
 
       <div className='footer-container'>
         <div className='socialmedia-container'>
-          <a href="https://linkedin.com">
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
             <FiLinkedin size={20} />
           </a>
-          <a href="https://facebook.com">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
             <FiFacebook size={20} />
           </a>
-          <a href="https://twitter.com">
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
             <FiTwitter size={20} />
           </a>
         </div>

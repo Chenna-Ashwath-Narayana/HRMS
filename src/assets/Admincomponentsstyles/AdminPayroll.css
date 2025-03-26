@@ -1,0 +1,96 @@
+.payroll-container {
+  width: 95%;
+  margin: auto;
+}
+
+/* Heading */
+.header-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Section */
+.salary-form-section {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 30vw;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.salary-form .form-group {
+  margin-bottom: 15px;
+}
+
+.salary-form input,
+.salary-form select {
+  width: 70%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pay-button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+/* Employee List */
+.employee-list-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.employee-table-wrapper {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.view-history-button {
+  background: #28a745;
+  color: white;
+  padding: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 50%;
+}
+
+.close-modal-button {
+  background: red;
+  color: white;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}

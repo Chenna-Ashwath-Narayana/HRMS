@@ -11,7 +11,7 @@ import Adminleavemanagement from './assets/admincomponents/Adminleavemanagement'
 import Adminattendance from './assets/admincomponents/Adminattendance';
 import Adminclients from './assets/admincomponents/Adminclients';
 import Adminpayroll from './assets/admincomponents/Adminpayroll';
-import Adminevents from './assets/admincomponents/Adminevents';
+import Adminevents from './assets/admincomponents/Adminnotices';
 import Admincalendar from './assets/admincomponents/Admincalendar';
 import PrivateRoute from './Privateroute';
 import Employeemainpage from './assets/employeecomponents/Employeemainpage';
@@ -24,6 +24,8 @@ import Attendance from './assets/employeecomponents/Attendance';
 import { EmployeeProvider } from './assets/Context/EmployeeContext';
 import { AdminUserProvider } from './assets/Context/AdminUserContext'; 
 import EmployeePrivate from './EmployeePrivate';
+import Adminnotices from './assets/admincomponents/Adminnotices';
+import Notice from './assets/employeecomponents/Notice';
 
 function App() {
   return (
@@ -54,7 +56,7 @@ function App() {
               <Route path='adminattendance' element={<Adminattendance />} />
               <Route path='adminclients' element={<Adminclients />} />
               <Route path='adminpayroll' element={<Adminpayroll />} />
-              <Route path='adminevents' element={<Adminevents />} />
+              <Route path='adminnotices' element={<Adminnotices />} />
               <Route path='admincalendar' element={<Admincalendar />} />
             </Route>
 
@@ -73,6 +75,7 @@ function App() {
               <Route path='update-profile' element={<Updateprofile />} />
               <Route path='payroll' element={<Payrolldetails />} />
               <Route path='leave-requests' element={<Leaverequest />} />
+              <Route path='notices' element={<Notice />}></Route>
               <Route path='attendance-management' element={<Attendance />} />
             </Route>
           </Routes>

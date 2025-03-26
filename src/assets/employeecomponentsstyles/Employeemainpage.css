@@ -1,7 +1,7 @@
 .employeepage-container{
     display: flex;
     flex-direction: row;
-    height: 50vw;
+    height: 60vw;
     width: 99vw;
     background-color: white;
 }

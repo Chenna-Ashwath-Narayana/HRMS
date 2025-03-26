@@ -30,6 +30,9 @@ const Employeemainpage = () => {
         <div className="sidebar">
           <Link to="leave-requests">Leave Requests</Link>
         </div>
+        <div className='sidebar'>
+          <Link to="notices" >Notices</Link>
+        </div>
         <div className="sidebar">
           <Link to="attendance-management">Attendance</Link>
         </div>

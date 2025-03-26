@@ -1,117 +1,96 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Admincomponentsstyles/Adminemployees.css';
+import '../Admincomponentsstyles/AdminEmployees.css';
 
-const Adminemployees = () => {
+const AdminEmployees = () => {
   const [employees, setEmployees] = useState([]);
-  const [newEmployee, setNewEmployee] = useState({ 
-    employeeId: '', 
-    employeeName: '', 
-    designation: '', 
-    department: '', 
-    salary: '', 
-    mobile: '', // New field
-    email: '', // New field
-    joinDate: '', // New field
-    address: '' // New field
+  const [employeeData, setEmployeeData] = useState({
+    employeeId: '', employeeName: '', designation: '', department: '', salary: '', 
+    mobile: '', email: '', joinDate: '', address: ''
   });
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false); // Modal for adding employee
-  const [showDetailsModal, setShowDetailsModal] = useState(false); // Modal for employee details
-  const [showUpdateModal, setShowUpdateModal] = useState(false); // Modal for updating employee
-  const [selectedEmployee, setSelectedEmployee] = useState(null); // Selected employee for details
+  const [showModal, setShowModal] = useState(false);
 
-  const employeesPerPage = 10;
+  const employeesPerPage = 8;
 
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = () => {
-    axios
-      .get('http://localhost:9000/employee/listEmployee')
-      .then((response) => {
+    axios.get('http://localhost:9000/employee/listEmployee')
+      .then(response => {
         setEmployees(response.data);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error fetching employees:', error);
         setLoading(false);
       });
   };
 
-  const handleAddEmployee = () => {
-    axios
-      .post('http://localhost:9000/employee/addemployee', newEmployee)
-      .then((response) => {
-        setEmployees([...employees, response.data]);
-        setNewEmployee({ 
-          employeeId: '', 
-          employeeName: '', 
-          designation: '', 
-          department: '', 
-          salary: '', 
-          mobile: '', 
-          email: '', 
-          joinDate: '', 
-          address: ''
-        });
-        alert('Employee added successfully');
-        setShowAddModal(false);
-      })
-      .catch((error) => {
-        console.error('Error adding employee:', error);
-      });
-  };
-
-  const handleUpdateEmployee = () => {
-    axios
-      .put(`http://localhost:9000/employee/updateEmployee/${selectedEmployee.employeeId}`, selectedEmployee)
-      .then((response) => {
-        const updatedEmployees = employees.map((employee) =>
-          employee.employeeId === selectedEmployee.employeeId ? response.data : employee
-        );
-        setEmployees(updatedEmployees);
-        alert('Employee updated successfully');
-        setShowUpdateModal(false);
-      })
-      .catch((error) => {
-        console.error('Error updating employee:', error);
-      });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (selectedEmployee) {
+      // Update Employee
+      axios.put(`http://localhost:9000/employee/updateEmployee/${selectedEmployee.employeeId}`, employeeData)
+        .then(response => {
+          setEmployees(employees.map(emp => emp.employeeId === selectedEmployee.employeeId ? response.data : emp));
+          alert('Employee updated successfully');
+          closeModal();
+        })
+        .catch(error => console.error('Error updating employee:', error));
+    } else {
+      // Add Employee
+      axios.post('http://localhost:9000/employee/addemployee', employeeData)
+        .then(response => {
+          setEmployees([...employees, response.data]);
+          alert('Employee added successfully');
+          closeModal();
+        })
+        .catch(error => console.error('Error adding employee:', error));
+    }
   };
 
   const handleDeleteEmployee = (employeeId) => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
-      axios
-        .delete(`http://localhost:9000/employee/deleteEmployee/${employeeId}`)
+      axios.delete(`http://localhost:9000/employee/deleteEmployee/${employeeId}`)
         .then(() => {
-          setEmployees(employees.filter((employee) => employee.employeeId !== employeeId));
+          setEmployees(employees.filter(emp => emp.employeeId !== employeeId));
           alert('Employee deleted successfully');
         })
-        .catch((error) => {
-          console.error('Error deleting employee:', error);
-        });
+        .catch(error => console.error('Error deleting employee:', error));
     }
   };
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+  const openModal = (employee = null) => {
+    if (employee) {
+      setSelectedEmployee(employee);
+      setEmployeeData(employee);
+    } else {
+      setSelectedEmployee(null);
+      setEmployeeData({
+        employeeId: '', employeeName: '', designation: '', department: '', salary: '', 
+        mobile: '', email: '', joinDate: '', address: ''
+      });
+    }
+    setShowModal(true);
   };
 
-  const handleEmployeeClick = (employee) => {
-    setSelectedEmployee(employee);
-    setShowDetailsModal(true); // Show employee details modal
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedEmployee(null);
+    setEmployeeData({
+      employeeId: '', employeeName: '', designation: '', department: '', salary: '', 
+      mobile: '', email: '', joinDate: '', address: ''
+    });
   };
 
-  const handleEditClick = (employee) => {
-    setSelectedEmployee(employee);
-    setShowUpdateModal(true); // Show update modal
-  };
-
-  const filteredEmployees = employees.filter((employee) =>
-    employee.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredEmployees = employees.filter(emp =>
+    emp.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const startIndex = currentPage * employeesPerPage;
@@ -120,229 +99,37 @@ const Adminemployees = () => {
   const totalPages = Math.ceil(filteredEmployees.length / employeesPerPage);
 
   const handleNext = () => {
-    if (currentPage < totalPages - 1) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
   };
 
   const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div className="employee-loading">Loading...</div>;
 
   return (
-    <div className="admin-employees-container">
-      <div className="header">
+    <div className="employee-container">
+      
+      {/* Heading */}
+      <div className="employee-header">
         <h2>Employee Management System</h2>
       </div>
 
-      <div className="add-employee-button">
-        <button onClick={() => setShowAddModal(true)}>Add New Employee</button>
-      </div>
-
-      {/* Add Employee Modal */}
-      {showAddModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowAddModal(false)}>&times;</span>
-            <h3>Add New Employee</h3>
-            <form onSubmit={(e) => { e.preventDefault(); handleAddEmployee(); }}>
-              <div>
-                <label>Employee Id:</label>
-                <input
-                  type="number"
-                  value={newEmployee.employeeId}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, employeeId: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Employee Name:</label>
-                <input
-                  type="text"
-                  value={newEmployee.employeeName}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, employeeName: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Designation:</label>
-                <input
-                  type="text"
-                  value={newEmployee.designation}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, designation: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Department:</label>
-                <input
-                  type="text"
-                  value={newEmployee.department}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, department: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Employee Salary:</label>
-                <input
-                  type="number"
-                  value={newEmployee.salary}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, salary: e.target.value })}
-                />
-              </div>
-              <div>
-                <label>Mobile:</label>
-                <input
-                  type="text"
-                  value={newEmployee.mobile}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, mobile: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Email:</label>
-                <input
-                  type="email"
-                  value={newEmployee.email}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, email: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Join Date:</label>
-                <input
-                  type="date"
-                  value={newEmployee.joinDate}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, joinDate: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Address:</label>
-                <input
-                  type="text"
-                  value={newEmployee.address}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, address: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <button type="submit">Add Employee</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Employee Details Modal */}
-      {showDetailsModal && selectedEmployee && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowDetailsModal(false)}>&times;</span>
-            <h3>Employee Details</h3>
-            <p><strong>Employee ID:</strong> {selectedEmployee.employeeId}</p>
-            <p><strong>Name:</strong> {selectedEmployee.employeeName}</p>
-            <p><strong>Designation:</strong> {selectedEmployee.designation}</p>
-            <p><strong>Department:</strong> {selectedEmployee.department}</p>
-            <p><strong>Mobile:</strong> {selectedEmployee.mobile}</p>
-            <p><strong>Email:</strong> {selectedEmployee.email}</p>
-            <p><strong>Join Date:</strong> {selectedEmployee.joinDate}</p>
-            <p><strong>Address:</strong> {selectedEmployee.address}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Update Employee Modal */}
-      {showUpdateModal && selectedEmployee && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowUpdateModal(false)}>&times;</span>
-            <h3>Update Employee</h3>
-            <form onSubmit={(e) => { e.preventDefault(); handleUpdateEmployee(); }}>
-              <div>
-                <label>Employee Name:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.employeeName}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, employeeName: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Designation:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.designation}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, designation: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Department:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.department}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, department: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Mobile:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.mobile}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, mobile: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Email:</label>
-                <input
-                  type="email"
-                  value={selectedEmployee.email}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, email: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Join Date:</label>
-                <input
-                  type="date"
-                  value={selectedEmployee.joinDate}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, joinDate: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <label>Address:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.address}
-                  onChange={(e) => setSelectedEmployee({ ...selectedEmployee, address: e.target.value })}
-                  required
-                />
-              </div>
-              <div>
-                <button type="submit">Update Employee</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      <div className="employee-list-section">
+      {/* Controls */}
+      <div className="employee-controls">
         <input
           type="text"
+          className="employee-search"
           placeholder="Search by employee name"
           value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <button className="employee-add-button" onClick={() => openModal()}>Add Employee</button>
+      </div>
+
+      {/* Employee List */}
+      <div className="employee-list">
         <table className="employee-table">
           <thead>
             <tr>
@@ -354,35 +141,78 @@ const Adminemployees = () => {
             </tr>
           </thead>
           <tbody>
-            {currentEmployees.map((employee) => (
-              <tr key={employee.employeeId}>
-                <td onClick={() => handleEmployeeClick(employee)}>{employee.employeeId}</td>
-                <td>{employee.employeeName}</td>
-                <td>{employee.designation}</td>
-                <td>{employee.department}</td>
+            {currentEmployees.map((emp) => (
+              <tr key={emp.employeeId}>
+                <td>{emp.employeeId}</td>
+                <td>{emp.employeeName}</td>
+                <td>{emp.designation}</td>
+                <td>{emp.department}</td>
                 <td>
-                  <button className='editbutton' onClick={() => handleEditClick(employee)}>Edit</button>
-                  <button className='deletebutton' onClick={() => handleDeleteEmployee(employee.employeeId)}>Delete</button>
+                  <button className="employee-edit" onClick={() => openModal(emp)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                      <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                    </svg>
+                  </button>
+                  <button className="employee-delete" onClick={() => handleDeleteEmployee(emp.employeeId)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        <div className="employee-pagination">
+          <button onClick={handlePrevious} disabled={currentPage === 0}>Previous</button>
+          <span>Page {currentPage + 1} of {totalPages}</span>
+          <button onClick={handleNext} disabled={currentPage >= totalPages - 1}>Next</button>
+        </div>
       </div>
 
-      <div className="pagination">
-        <button onClick={handlePrevious} disabled={currentPage === 0}>
-          Previous
-        </button>
-        <span>
-          Page {currentPage + 1} of {totalPages}
-        </span>
-        <button onClick={handleNext} disabled={currentPage >= totalPages - 1}>
-          Next
-        </button>
-      </div>
+      {/* Modal for Add/Update */}
+      {showModal && (
+        <div className="employee-modal">
+          <div className="employee-modal-content">
+            <h3>{selectedEmployee ? 'Update Employee' : 'Add New Employee'}</h3>
+            <form onSubmit={handleSubmit}>
+              <input type="number" placeholder="Employee ID" value={employeeData.employeeId} required
+                onChange={(e) => setEmployeeData({ ...employeeData, employeeId: e.target.value })} disabled={!!selectedEmployee}
+              />
+              <input type="text" placeholder="Employee Name" value={employeeData.employeeName} required
+                onChange={(e) => setEmployeeData({ ...employeeData, employeeName: e.target.value })}
+              />
+              <input type="text" placeholder="Designation" value={employeeData.designation} required
+                onChange={(e) => setEmployeeData({ ...employeeData, designation: e.target.value })}
+              />
+              <input type="text" placeholder="Department" value={employeeData.department} required
+                onChange={(e) => setEmployeeData({ ...employeeData, department: e.target.value })}
+              />
+              <input type="number" placeholder="Salary" value={employeeData.salary} required
+                onChange={(e) => setEmployeeData({ ...employeeData, salary: e.target.value })}
+              />
+              <input type="text" placeholder="Mobile" value={employeeData.mobile} required
+                onChange={(e) => setEmployeeData({ ...employeeData, mobile: e.target.value })}
+              />
+              <input type="email" placeholder="Email" value={employeeData.email} required
+                onChange={(e) => setEmployeeData({ ...employeeData, email: e.target.value })}
+              />
+              <input type="date" value={employeeData.joinDate} required
+                onChange={(e) => setEmployeeData({ ...employeeData, joinDate: e.target.value })}
+              />
+              <input type="text" placeholder="Address" value={employeeData.address} required
+                onChange={(e) => setEmployeeData({ ...employeeData, address: e.target.value })}
+              />
+              <button type="submit" className='firstbutton'>{selectedEmployee ? 'Update' : 'Add'} Employee</button>
+            </form>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Adminemployees;
+export default AdminEmployees;
