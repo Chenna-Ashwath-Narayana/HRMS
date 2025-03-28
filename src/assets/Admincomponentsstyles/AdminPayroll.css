@@ -80,7 +80,7 @@
   align-items: center;
 }
 
-.modal-content {
+.modal-content-container {
   background: white;
   padding: 20px;
   border-radius: 8px;

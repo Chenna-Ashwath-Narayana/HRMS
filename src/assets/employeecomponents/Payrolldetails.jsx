@@ -26,7 +26,7 @@ const PayrollDetails = () => {
 
   return (
     <div className="employee-payroll-container">
-      <h1>Payroll Details</h1>
+      <h1 className='payrolldetails-container'>Payroll Details</h1>
       {loading ? (
         <p>Loading payroll data...</p>
       ) : payrollData.length === 0 ? (

@@ -126,8 +126,8 @@ const Adminprojects = () => {
 
       {/* Modal for Adding/Editing Project */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="adminmodal-overlay">
+          <div className="adminmodal-content">
             <span className="close" onClick={() => setShowModal(false)}>&times;</span>
             <h2>{selectedProject ? "Edit Project" : "Add New Project"}</h2>
             <form onSubmit={(e) => { e.preventDefault(); handleAddProject(); }}>

@@ -135,7 +135,7 @@ const EmployeePayroll = () => {
       {/* Payment History Modal */}
       {showHistoryModal && (
         <div className="modal-overlay">
-          <div className="modal-content">
+          <div className="modal-content-container">
             <h2>Payment History</h2>
             <table className="history-table">
               <thead>

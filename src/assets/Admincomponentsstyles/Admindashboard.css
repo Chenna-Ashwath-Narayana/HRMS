@@ -1,20 +1,40 @@
-.dashboard-container{
+.dashboardpage-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    max-width: 80vw;
+    height: 70vw;
+    gap: 10px;
+    /* border: 1px solid black; */
+    /* background-color: blue; */
 }
 
 .count-of-all{
     display: flex;
-    /* flex-direction: row; */
+    flex-direction: row;
+    align-self: center;
     justify-content: space-evenly;
     gap: 1vw;
+    width: 74vw;
+    background-color: rgb(211, 235, 233);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.count-of-all h2{
+    margin-bottom: 0px;
+}
+
+.count-of-all p{
+    margin-top: 0px;
+    font-size: 2.5vw;
 }
 
 .employeecount-container{
     width: 20vw;
     height: 8vw;
     border: 1px solid black;
-    background-color: cadetblue;
+    background-color: white;
     border-radius: 20px;
 }
 
@@ -22,7 +42,7 @@
     width: 20vw;
     height: 8vw;
     border: 1px solid black;
-    background-color: cadetblue;
+    background-color: white;
     border-radius: 20px;
 }
 
@@ -30,6 +50,126 @@
     width: 20vw;
     height: 8vw;
     border: 1px solid black;
-    background-color: cadetblue;
+    background-color: white;
     border-radius: 20px;
+}
+
+.second-page-container{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    padding: 10px;
+    background-color: rgb(211, 235, 233);
+    border-radius: 10px;
+    width: 74vw;
+    height: 22vw;
+    gap: 10px;
+}
+
+.notice-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 20vw;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.employeelist-container{
+    width: 60vw;
+    height: 10vw;
+}
+
+.employee-container {
+    width: 60vw;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.employee-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.employee-list-container {
+    max-width: 60vw;
+    max-height: 300px; /* Fixed height */
+    overflow-y: auto;  /* Enables scrolling */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.employee-list-container h2{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-table th, .employee-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.employee-table th {
+    background-color: #f2f2f2;
+}
+
+.third-page-container{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    padding: 10px;
+    background-color: rgb(211, 235, 233);
+    border-radius: 10px;
+    width: 74vw;
+    height: 22vw;
+}
+
+/* Client List Container */
+.client-list-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Scrollable Table Wrapper */
+.client-table-wrapper {
+    max-height: 300px; /* Set max height for scroll */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+/* Table Styling */
+.client-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.client-table th,
+.client-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+/* Header Styling */
+.client-table thead {
+    background: #007bff;
+    color: white;
+    position: sticky;
+    top: 0;
 }

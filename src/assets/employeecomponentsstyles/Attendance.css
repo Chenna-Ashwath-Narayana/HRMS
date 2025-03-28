@@ -1,0 +1,65 @@
+.attendance {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: black;
+  }
+  
+  .attendance h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Scrollable Table Container */
+  .attendance-table-container {
+    max-height: 400px; /* Set a fixed height for scrolling */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    width: 50vw;
+  }
+  
+  /* Attendance Table */
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Sticky Header */
+  .attendance-table thead {
+    background-color: #007bff;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .attendance-table th,
+  .attendance-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .attendance-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .attendance-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Optional: Add scrollbar styling */
+  .attendance-table-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .attendance-table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .attendance-table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

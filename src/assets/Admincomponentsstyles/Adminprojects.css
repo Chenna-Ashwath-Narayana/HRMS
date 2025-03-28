@@ -41,7 +41,7 @@
   cursor: pointer;
 }
 
-.modal-overlay {
+.adminmodal-overlay {
   /* position: absolute; */
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -50,14 +50,14 @@
   align-items: center;
 }
 
-.modal-content {
+.adminmodal-content {
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.modal-content form{
+.adminmodal-content form{
   text-align: center;
   background: white;
   /* padding: 20px; */
@@ -66,7 +66,7 @@
   height: 25vw;
 }
 
-.modal-content h2{
+.adminmodal-content h2{
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -76,20 +76,20 @@
   cursor: pointer;
 }
 
-.modal-content input{
+.adminmodal-content input{
   width: 20vw;
   height: 2vw;
   margin-left: 15vw;
   margin-bottom: 1vw;
 }
 
-.modal-content textarea{
+.adminmodal-content textarea{
   width: 20vw;
   height: 2vw;
   margin-left: 15vw;
 }
 
-.modal-content button{
+.adminmodal-content button{
   width: 10vw;
   margin-left: 20vw;
 }

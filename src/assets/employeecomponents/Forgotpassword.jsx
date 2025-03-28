@@ -31,7 +31,7 @@ const Forgotpassword = () => {
 
   return (
     <div>
-      <h2>Forgot Password</h2>
+      <h2 className='employeeforgotpassword-container'>Forgot Password</h2>
       <input 
         type="text" 
         placeholder="Mobile Number" 

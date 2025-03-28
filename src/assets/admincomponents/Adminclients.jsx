@@ -155,28 +155,28 @@ const AdminClients = () => {
         </div>
       )}
 
-      {/* Client list */ }
-<div className="client-grid">
-  {currentClients.map((client) => (
-    <div key={client.clientId} className="client-card">
-      <div className="client-card-content">
-        <h3>{client.clientName}</h3>
-        <div className="client-details">
-          <p><strong>Company Name:</strong> {client.companyName}</p>
-          <p><strong>Contact Person:</strong> {client.contactPerson}</p>
-          <p><strong>Email:</strong> {client.email}</p>
-          <p><strong>Phone Number:</strong> {client.phoneNumber}</p>
-          <p><strong>Address:</strong> {client.address}</p>
-          <p><strong>Status:</strong> {client.status}</p>
+              {/* Client list */ }
+        <div className="client-grid">
+          {currentClients.map((client) => (
+            <div key={client.clientId} className="client-card">
+              <div className="client-card-content">
+                <h3>{client.clientName}</h3>
+                <div className="client-details">
+                  <p><strong>Company Name:</strong> {client.companyName}</p>
+                  <p><strong>Contact Person:</strong> {client.contactPerson}</p>
+                  <p><strong>Email:</strong> {client.email}</p>
+                  <p><strong>Phone Number:</strong> {client.phoneNumber}</p>
+                  <p><strong>Address:</strong> {client.address}</p>
+                  <p><strong>Status:</strong> {client.status}</p>
+                </div>
+              </div>
+              <div className="client-card-actions">
+                <button onClick={() => handleEdit(client)}>Edit</button>
+                <button onClick={() => handleDelete(client.clientId)}>Delete</button>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-      <div className="client-card-actions">
-        <button onClick={() => handleEdit(client)}>Edit</button>
-        <button onClick={() => handleDelete(client.clientId)}>Delete</button>
-      </div>
-    </div>
-  ))}
-</div>
 
 
       {/* Pagination */}

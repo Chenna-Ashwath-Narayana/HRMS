@@ -41,6 +41,8 @@ const Employeelogin = () => {
         
         // Store employee data in local storage for use in other components
         localStorage.setItem('employeeData', JSON.stringify(employeeData));
+        localStorage.setItem("employeeId", employeeData.employeeId);
+        console.log("Stored employeeId:", localStorage.getItem("employeeId"));
 
         // Navigate to employee main page
         navigate('/employeepage');
@@ -114,7 +116,7 @@ const Employeelogin = () => {
         <button onClick={handleLogin} disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button><br />
-        <a href='/forgot'>Forgot your password?</a>
+        <a href='/employeeforgotpassword'>Forgot your password?</a>
       </div>
 
       <div className='footer-container'>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../employeecomponentsstyles/Notices.css'; // ✅ Import CSS file
 
 const Notice = () => {
   const [notices, setNotices] = useState([]);
@@ -18,20 +19,27 @@ const Notice = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-center">Notices</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {notices.map((notice) => (
-          <div key={notice.noticeId} className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-2">{notice.noticeTitle}</h2>
-            <p className="text-gray-600 text-sm mb-2">Department: {notice.department}</p>
-            <p className="text-gray-600 text-sm mb-2">Date: {new Date(notice.noticeDate).toLocaleDateString()}</p>
-            <p className="text-gray-600 mb-2">
-              <strong>Important:</strong> {notice.isImportant ? 'Yes' : 'No'}
-            </p>
-            <p className="text-gray-700">{notice.noticeDetails}</p>
+    <div className="notice-container">
+      <h1 className="notice-title">📢 Latest Notices</h1>
+
+      <div className="employeenotice-box">
+        {notices.length > 0 ? (
+          <div>
+            {notices.map((notice) => (
+              <div key={notice.noticeId} className="notice-card">
+                <h2>{notice.noticeTitle}</h2>
+                <p><strong>📁 Department:</strong> {notice.department}</p>
+                <p><strong>📅 Date:</strong> {new Date(notice.noticeDate).toLocaleDateString()}</p>
+                <p className={`notice-important ${notice.isImportant ? 'text-red' : 'text-green'}`}>
+                  <strong>⚠️ Important:</strong> {notice.isImportant ? 'Yes' : 'No'}
+                </p>
+                <p>{notice.noticeDetails}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <p className="text-gray-500 text-center">No notices available.</p>
+        )}
       </div>
     </div>
   );

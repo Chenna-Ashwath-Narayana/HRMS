@@ -147,9 +147,9 @@ const AdminNotice = () => {
           <motion.div key={notice.noticeId} className="notice-item" whileHover={{ scale: 1.05 }}>
             <h3>{notice.noticeTitle}</h3>
             <p>{notice.noticeDetails}</p>
-            <p>{new Date(notice.date).toLocaleDateString()}</p>
+            <p><strong>📅 Date:</strong> {new Date(notice.date).toLocaleDateString()}</p>
             <p>{notice.department}</p>
-            <p>{notice.isImportant ? "Important" : "Regular"}</p>
+            <p><strong>⚠️ Important:</strong>{notice.isImportant ? "Important" : "Regular"}</p>
             <div className="notice-actions">
               <FaEdit onClick={() => handleEditNotice(notice)} className="notice-action-icon" />
               <FaTrash onClick={() => handleDeleteNotice(notice.noticeId)} className="notice-action-icon" />

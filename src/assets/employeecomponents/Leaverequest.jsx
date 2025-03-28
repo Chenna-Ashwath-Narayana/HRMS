@@ -16,7 +16,7 @@ const LeaveRequest = () => {
   });
   const [isOpen, setIsOpen] = useState(false);
   const [leaveStatus, setLeaveStatus] = useState(null);
-  const [leaveRequests, setLeaveRequests] = useState([]); // State to store leave requests
+  const [leaveRequests, setLeaveRequests] = useState([]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('employeeData'));
@@ -28,7 +28,6 @@ const LeaveRequest = () => {
     }
   }, [navigate]);
 
-  // Fetch leave requests for the employee
   const fetchLeaveRequests = async (employeeId) => {
     try {
       const response = await axios.get(`http://localhost:9000/leaves/employee/${employeeId}`);
@@ -55,14 +54,14 @@ const LeaveRequest = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:9000/leaves/saveleaves', {
+      await axios.post('http://localhost:9000/leaves/saveleaves', {
         employeeId: employeeData.employeeId,
         employeeName: employeeData.employeeName,
         ...leaveRequest,
       });
 
       setLeaveStatus('Leave request submitted successfully!');
-      fetchLeaveRequests(employeeData.employeeId); // Refresh leave requests list
+      fetchLeaveRequests(employeeData.employeeId);
     } catch (error) {
       console.error('Error submitting leave request:', error);
       setLeaveStatus('An error occurred. Please try again.');
@@ -86,56 +85,69 @@ const LeaveRequest = () => {
   };
 
   return (
-    <div className='leave-request-container'>
-      <button onClick={openModal} className='toggle-button'>
+    <div className="leaveRequest-container">
+      <button onClick={openModal} className="leaveRequest-btn">
         Request Leave
       </button>
 
-      <Modal isOpen={isOpen} onClose={closeModal}>
-        <h1 className='title'>Leave Request</h1>
-        <form className='leave-request-form' onSubmit={handleSubmit}>
-          <div className='form-field'>
-            <label>Employee Name:</label>
-            <input type='text' value={employeeData?.employeeName || ''} readOnly />
+        <Modal isOpen={isOpen} onClose={closeModal}>
+          <h1 className="leaveRequest-title">Leave Request</h1>
+
+          <div className="leaveRequest-formWrapper">
+            <form className="leaveRequest-form" onSubmit={handleSubmit}>
+              
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">Employee Name:</label>
+                <input type="text" value={employeeData?.employeeName || ''} readOnly className="leaveRequest-input" />
+              </div>
+
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">Employee ID:</label>
+                <input type="text" value={employeeData?.employeeId || ''} readOnly className="leaveRequest-input" />
+              </div>
+
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">Leave Type:</label>
+                <select name="leaveType" value={leaveRequest.leaveType} onChange={handleChange} required className="leaveRequest-input">
+                  <option value="">Select Leave Type</option>
+                  <option value="Sick Leave">Sick Leave</option>
+                  <option value="Casual Leave">Casual Leave</option>
+                  <option value="Annual Leave">Annual Leave</option>
+                </select>
+              </div>
+
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">Start Date:</label>
+                <input type="date" name="startDate" value={leaveRequest.startDate} onChange={handleChange} required className="leaveRequest-input" />
+              </div>
+
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">End Date:</label>
+                <input type="date" name="endDate" value={leaveRequest.endDate} onChange={handleChange} required className="leaveRequest-input" />
+              </div>
+
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">Reason:</label>
+                <textarea name="reason" value={leaveRequest.reason} onChange={handleChange} required className="leaveRequest-textarea"></textarea>
+              </div>
+
+              <div className="leaveRequest-field">
+                <label className="leaveRequest-label">Additional Info:</label>
+                <textarea name="additionalInfo" value={leaveRequest.additionalInfo} onChange={handleChange} className="leaveRequest-textarea"></textarea>
+              </div>
+
+              <button type="submit" className="leaveRequest-submitBtn">Submit Request</button>
+              {leaveStatus && <div className="leaveRequest-status">{leaveStatus}</div>}
+              
+            </form>
           </div>
-          <div className='form-field'>
-            <label>Employee ID:</label>
-            <input type='text' value={employeeData?.employeeId || ''} readOnly />
-          </div>
-          <div className='form-field'>
-            <label>Leave Type:</label>
-            <select name='leaveType' value={leaveRequest.leaveType} onChange={handleChange} required>
-              <option value=''>Select Leave Type</option>
-              <option value='Sick Leave'>Sick Leave</option>
-              <option value='Casual Leave'>Casual Leave</option>
-              <option value='Annual Leave'>Annual Leave</option>
-            </select>
-          </div>
-          <div className='form-field'>
-            <label>Start Date:</label>
-            <input type='date' name='startDate' value={leaveRequest.startDate} onChange={handleChange} required />
-          </div>
-          <div className='form-field'>
-            <label>End Date:</label>
-            <input type='date' name='endDate' value={leaveRequest.endDate} onChange={handleChange} required />
-          </div>
-          <div className='form-field'>
-            <label>Reason:</label>
-            <textarea name='reason' value={leaveRequest.reason} onChange={handleChange} required />
-          </div>
-          <div className='form-field'>
-            <label>Additional Info:</label>
-            <textarea name='additionalInfo' value={leaveRequest.additionalInfo} onChange={handleChange} />
-          </div>
-          <button type='submit' className='submit-button'>Submit Request</button>
-          {leaveStatus && <div className='leave-status'>{leaveStatus}</div>}
-        </form>
-      </Modal>
+        </Modal>
+
 
       {/* List of Leave Requests */}
-      <h2>My Leave Requests</h2>
+      <h2 className="leaveRequest-listTitle">My Leave Requests</h2>
       {leaveRequests.length > 0 ? (
-        <table className='leave-table'>
+        <table className="leaveRequest-table">
           <thead>
             <tr>
               <th>Start Date</th>
@@ -158,7 +170,7 @@ const LeaveRequest = () => {
           </tbody>
         </table>
       ) : (
-        <p>No leave requests found.</p>
+        <p className="leaveRequest-noRequests">No leave requests found.</p>
       )}
     </div>
   );

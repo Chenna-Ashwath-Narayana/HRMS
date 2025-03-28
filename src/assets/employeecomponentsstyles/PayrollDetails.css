@@ -1,13 +1,17 @@
 .employee-payroll-container {
-    max-width: 700px;
-    margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
     padding: 20px;
+    width: 80vw;
+    height: auto;
     background: #ffffff;
     border-radius: 10px;
+    color: black;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
-  h1 {
+  .payrolldetails-container {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
@@ -16,7 +20,8 @@
   }
   
   .payroll-table {
-    width: 100%;
+    /* margin-left: 100px; */
+    width: 80%;
     border-collapse: collapse;
     margin-top: 20px;
   }

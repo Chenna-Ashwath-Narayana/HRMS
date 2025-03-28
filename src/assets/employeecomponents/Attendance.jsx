@@ -1,20 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import '../employeecomponentsstyles/Attendance.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+import "../employeecomponentsstyles/Attendance.css";
 
 const Attendance = () => {
   const [attendanceRecords, setAttendanceRecords] = useState([]);
+  const [employeeId, setEmployeeId] = useState(null);
 
   useEffect(() => {
-    fetchAttendance();
+    const storedEmployeeId = localStorage.getItem("employeeId");
+    if (storedEmployeeId) {
+      setEmployeeId(storedEmployeeId);
+      fetchAttendance(storedEmployeeId);
+    } else {
+      console.error("Invalid or missing Employee ID in localStorage");
+    }
   }, []);
 
-  const fetchAttendance = async () => {
+  const fetchAttendance = async (id) => {
     try {
-      const response = await axios.get('http://localhost:9000/attendance/employee');
+      const response = await axios.get(
+        `http://localhost:9000/attendance/employee/${id}`
+      );
+      console.log("Attendance Data:", response.data);
       setAttendanceRecords(response.data);
     } catch (error) {
-      console.error('Error fetching attendance records:', error);
+      console.error("Error fetching attendance records:", error);
     }
   };
 
@@ -22,26 +33,28 @@ const Attendance = () => {
     <div className="attendance">
       <h1>Attendance Records</h1>
       {attendanceRecords.length > 0 ? (
-        <table className="attendance-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Login Time</th>
-              <th>Logout Time</th>
-              <th>Working Hours</th>
-            </tr>
-          </thead>
-          <tbody>
-            {attendanceRecords.map((record) => (
-              <tr key={record.id}>
-                <td>{record.date}</td>
-                <td>{record.loginTime}</td>
-                <td>{record.logoutTime}</td>
-                <td>{record.workingHours.toFixed(2)} hours</td>
+        <div className="attendance-table-container"> {/* Scrollable div */}
+          <table className="attendance-table">
+            <thead>
+              <tr>
+                <th>Employee ID</th>
+                <th>Date</th>
+                <th>Employee Name</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {attendanceRecords.map((record) => (
+                <tr key={record.date}>
+                  <td>{record.employeeId}</td>
+                  <td>{record.date}</td>
+                  <td>{record.employeeName}</td>
+                  <td>{record.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p>No attendance records found.</p>
       )}

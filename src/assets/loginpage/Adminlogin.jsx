@@ -131,7 +131,7 @@ const Adminlogin = () => {
             
             <br />
 
-          <a href='/forgot'>Forgot your password</a>
+          <a href='/adminforgotpassword'>Forgot your password</a>
         </div>
         <div className='footer-container'>
           <div className='socialmedia-container'>

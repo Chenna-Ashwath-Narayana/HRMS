@@ -26,6 +26,8 @@ import { AdminUserProvider } from './assets/Context/AdminUserContext';
 import EmployeePrivate from './EmployeePrivate';
 import Adminnotices from './assets/admincomponents/Adminnotices';
 import Notice from './assets/employeecomponents/Notice';
+import AdminForgotPassword from './assets/admincomponents/AdminForgotPassword';
+import EmployeeForgotPassword from './assets/employeecomponents/EmployeeForgotPassword';
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
             <Route path='/' element={<Frontpage />} />
             <Route path='/adminlogin' element={<Adminlogin />} />
             <Route path='/employeelogin' element={<Employeelogin />} />
+            <Route path='/adminforgotpassword' element={<AdminForgotPassword />} />
+            <Route path='/employeeforgotpassword' element={<EmployeeForgotPassword />} />
 
             {/* Private Admin Routes */}
             <Route

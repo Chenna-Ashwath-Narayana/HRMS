@@ -19,7 +19,7 @@ const EmployeeProfile = () => {
       <h2 className='employeename'>{employeeData.employeeName}</h2>
       <div className='employee-details'>
         <div className='detail-card'>
-          <table>
+          <table className='viewprofile-table-container'>
             <tr>
               <td>Emloyee Id :</td>
               <td>{employeeData.employeeId}</td>

@@ -103,7 +103,7 @@ const Admincalendar = () => {
 
   return (
     <div className="admin-calendar">
-      <h1>Admin Calendar</h1>
+      <h1 className='admincalendar-heading-container'>Admin Calendar</h1>
 
       <motion.div
         initial={{ opacity: 0, y: -20 }}
